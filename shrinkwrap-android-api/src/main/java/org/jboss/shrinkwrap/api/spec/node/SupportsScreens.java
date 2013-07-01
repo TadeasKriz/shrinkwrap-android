@@ -1,0 +1,154 @@
+package org.jboss.shrinkwrap.api.spec.node;
+
+import org.jboss.shrinkwrap.api.spec.Node;
+
+/**
+ * @author <a href="mailto:tkriz@redhat.com">Tadeas Kriz</a>
+ */
+public class SupportsScreens implements Node {
+
+    private Boolean resizeable = null;
+    private Boolean smallScreens = null;
+    private Boolean normalScreens = null;
+    private Boolean largeScreens = null;
+    private Boolean xlargeScreens = null;
+    private Boolean anyDensity = null;
+    private Integer requiresSmallestWidthDp = null;
+    private Integer compatibleWidthLimitDp = null;
+    private Integer largestWidthLimitDp = null;
+
+    public Boolean getResizeable() {
+        return resizeable;
+    }
+
+    public SupportsScreens setResizeable(Boolean resizeable) {
+        this.resizeable = resizeable;
+        return this;
+    }
+
+    public Boolean getSmallScreens() {
+        return smallScreens;
+    }
+
+    public SupportsScreens setSmallScreens(Boolean smallScreens) {
+        this.smallScreens = smallScreens;
+        return this;
+    }
+
+    public Boolean getNormalScreens() {
+        return normalScreens;
+    }
+
+    public SupportsScreens setNormalScreens(Boolean normalScreens) {
+        this.normalScreens = normalScreens;
+        return this;
+    }
+
+    public Boolean getLargeScreens() {
+        return largeScreens;
+    }
+
+    public SupportsScreens setLargeScreens(Boolean largeScreens) {
+        this.largeScreens = largeScreens;
+        return this;
+    }
+
+    public Boolean getXlargeScreens() {
+        return xlargeScreens;
+    }
+
+    public SupportsScreens setXlargeScreens(Boolean xlargeScreens) {
+        this.xlargeScreens = xlargeScreens;
+        return this;
+    }
+
+    public Boolean getAnyDensity() {
+        return anyDensity;
+    }
+
+    public SupportsScreens setAnyDensity(Boolean anyDensity) {
+        this.anyDensity = anyDensity;
+        return this;
+    }
+
+    public Integer getRequiresSmallestWidthDp() {
+        return requiresSmallestWidthDp;
+    }
+
+    public SupportsScreens setRequiresSmallestWidthDp(Integer requiresSmallestWidthDp) {
+        this.requiresSmallestWidthDp = requiresSmallestWidthDp;
+        return this;
+    }
+
+    public Integer getCompatibleWidthLimitDp() {
+        return compatibleWidthLimitDp;
+    }
+
+    public SupportsScreens setCompatibleWidthLimitDp(Integer compatibleWidthLimitDp) {
+        this.compatibleWidthLimitDp = compatibleWidthLimitDp;
+        return this;
+    }
+
+    public Integer getLargestWidthLimitDp() {
+        return getLargestWidthLimitDp();
+    }
+
+    public SupportsScreens setLargestWidthLimitDp(Integer largestWidthLimitDp) {
+        this.largestWidthLimitDp = largestWidthLimitDp;
+        return this;
+    }
+
+    @Override
+    public void validate() {
+        if(requiresSmallestWidthDp < 0) {
+            throw new IllegalStateException("Attribute \"requiresSmallestWidthDp\" has to be >= 0!");
+        }
+        if(compatibleWidthLimitDp < 0) {
+            throw new IllegalStateException("Attribute \"compatibleWidthLimitDp\" has to be >= 0!");
+        }
+        if(largestWidthLimitDp < 0) {
+            throw new IllegalStateException("Attribute \"largestWidthLimitDp\" has to be >= 0!");
+        }
+    }
+
+    @Override
+    public String toXmlString(String indent) {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(indent).append("<supports-screens \n");
+
+        if(resizeable != null) {
+            builder.append(indent).append("\tandroid:resizeable=\"").append(resizeable).append("\" \n");
+        }
+        if(smallScreens != null) {
+            builder.append(indent).append("\tandroid:smallScreens=\"").append(smallScreens).append("\" \n");
+        }
+        if(normalScreens != null) {
+            builder.append(indent).append("\tandroid:normalScreens=\"").append(normalScreens).append("\" \n");
+        }
+        if(largeScreens != null) {
+            builder.append(indent).append("\tandroid:largeScreens=\"").append(largeScreens).append("\" \n");
+        }
+        if(xlargeScreens != null) {
+            builder.append(indent).append("\tandroid:xlargescreens=\"").append(xlargeScreens).append("\" \n");
+        }
+        if(anyDensity != null) {
+            builder.append(indent).append("\tandroid:anyDensity=\"").append(anyDensity).append("\" \n");
+        }
+        if(requiresSmallestWidthDp != null) {
+            builder.append(indent).append("\tandroid:requiresSmallestWidthDp=\"").append(requiresSmallestWidthDp).append("\" \n");
+        }
+        if(compatibleWidthLimitDp != null) {
+            builder.append(indent).append("\tandroid:compatibleWidthLimitDp=\"").append(compatibleWidthLimitDp).append("\" \n");
+        }
+        if(largestWidthLimitDp != null) {
+            builder.append(indent).append("\tandroid:largestWidthLimitDp=\"").append(largestWidthLimitDp).append("\" \n");
+        }
+
+        builder.append(indent).append("/>\n");
+
+        return builder.toString();
+    }
+
+
+}
