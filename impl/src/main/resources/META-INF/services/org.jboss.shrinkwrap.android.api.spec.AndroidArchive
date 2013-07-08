@@ -1,0 +1,3 @@
+implementingClassName=org.jboss.shrinkwrap.android.impl.base.spec.AndroidArchiveImpl
+extension=.zip
+archiveFormat=ZIP
