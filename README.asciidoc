@@ -1,0 +1,39 @@
+== shrinkwrap-android ==
+
+IMPORTANT: This project is currently a proof of concept and its API will probably change!
+
+=== Introduction ===
+
+Shrinkwrap-android is a simple Java library, primarily for use with Apkbuilder library. It assures the correct directory structure inside the archive and also helps you with creation of AndroidManifest.xml.
+
+=== Setup ===
+
+In your `pom.xml` add following dependency:
+
+[source,xml]
+<dependency>
+	<groupId>org.jboss.shrinkwrap</groupId>
+	<artifactId>shrinkwrap-android-depchain</artifactId>
+	<version>1.0-SNAPSHOT</version>
+</dependency>
+
+=== Usage ===
+
+This library uses the same API as standard +shrinkwrap+ and only adds some Android specific functions.
+
+[source,java]
+-------------------------------------
+AndroidArchive archive = ShrinkWrap.create(AndroidArchive.class);
+
+AndroidManifest manifest = createAndroidManifest();
+
+archive.addAsResource("resource-name", "resource-target"); # <1>
+archive.addClass(ClassToAdd.class);
+archive.addAsAndroidManifest(manifest);
+archive.addAsAsset("resource-name", "resource-target"); # <2>
+-------------------------------------
+
+<1> The file will be placed into /res/resource-target
+<2> The file will be placed into /asset/resource-target
+
+Easy right? Same applies to the AndroidManifest creation. It's all just a pure code, you won't get to bother with XML at all. Each node in AndroidManifest has its own class, with getters/setters following rules set in http://developer.android.com/guide/topics/manifest/manifest-intro.html#filestruct
