@@ -33,7 +33,7 @@ archive.addAsAndroidManifest(manifest);
 archive.addAsAsset("resource-name", "resource-target"); # <2>
 -------------------------------------
 
-<1> The file will be placed into /res/resource-target
-<2> The file will be placed into /asset/resource-target
+<1> The file will be placed into +/res/resource-target+
+<2> The file will be placed into +/asset/resource-target+
 
 Easy right? Same applies to the AndroidManifest creation. It's all just a pure code, you won't get to bother with XML at all. Each node in AndroidManifest has its own class, with getters/setters following rules set in http://developer.android.com/guide/topics/manifest/manifest-intro.html#filestruct
