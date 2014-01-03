@@ -1,3 +1,20 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2013 Red Hat Inc. and/or its affiliates and other contributors
+ * as indicated by the @authors tag. All rights reserved.
+ * See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.jboss.shrinkwrap.android.api.spec.node;
 
 import org.jboss.shrinkwrap.android.api.spec.XmlNode;
@@ -233,7 +250,7 @@ public class Application implements XmlNode {
         return uiOptions;
     }
 
-    public Application setUiOptions() {
+    public Application setUiOptions(String uiOptions) {
         this.uiOptions = uiOptions;
         return this;
     }
@@ -296,27 +313,27 @@ public class Application implements XmlNode {
     public void validate() {
         // TODO add validation!
 
-        for(Activity activity : activityList) {
+        for (Activity activity : activityList) {
             activity.validate();
         }
 
-        for(ActivityAlias activityAlias : activityAliasList) {
+        for (ActivityAlias activityAlias : activityAliasList) {
             activityAlias.validate();
         }
 
-        for(Service service : serviceList) {
+        for (Service service : serviceList) {
             service.validate();
         }
 
-        for(Receiver receiver : receiverList) {
+        for (Receiver receiver : receiverList) {
             receiver.validate();
         }
 
-        for(Provider provider : providerList) {
+        for (Provider provider : providerList) {
             provider.validate();
         }
 
-        for(UsesLibrary usesLibrary : usesLibraryList) {
+        for (UsesLibrary usesLibrary : usesLibraryList) {
             usesLibrary.validate();
         }
     }
@@ -327,96 +344,96 @@ public class Application implements XmlNode {
 
         builder.append(indent).append("<application \n");
 
-        if(allowTaskReparenting != null) {
+        if (allowTaskReparenting != null) {
             builder.append(indent).append("\tandroid:allowTaskReparenting=\"").append(allowTaskReparenting).append("\" \n");
         }
-        if(backupAgent != null) {
+        if (backupAgent != null) {
             builder.append(indent).append("\tandroid:backupAgent=\"").append(backupAgent).append("\" \n");
         }
-        if(debugable != null) {
+        if (debugable != null) {
             builder.append(indent).append("\tandroid:debugable=\"").append(debugable).append("\" \n");
         }
-        if(description != null) {
+        if (description != null) {
             builder.append(indent).append("\tandroid:description=\"").append(description).append("\" \n");
         }
-        if(enabled != null) {
+        if (enabled != null) {
             builder.append(indent).append("\tandroid:enabled=\"").append(enabled).append("\" \n");
         }
-        if(hasCode != null) {
+        if (hasCode != null) {
             builder.append(indent).append("\tandroid:hasCode=\"").append(hasCode).append("\" \n");
         }
-        if(hardwareAccelerated != null) {
+        if (hardwareAccelerated != null) {
             builder.append(indent).append("\tandroid:hardwareAccelerated=\"").append(hardwareAccelerated).append("\" \n");
         }
-        if(icon != null) {
+        if (icon != null) {
             builder.append(indent).append("\tandroid:icon=\"").append(icon).append("\" \n");
         }
-        if(killAfterRestore != null) {
+        if (killAfterRestore != null) {
             builder.append(indent).append("\tandroid:killAfterRestore=\"").append(killAfterRestore).append("\" \n");
         }
-        if(largeHeap != null) {
+        if (largeHeap != null) {
             builder.append(indent).append("\tandroid:largeHeap=\"").append(largeHeap).append("\" \n");
         }
-        if(label != null) {
+        if (label != null) {
             builder.append(indent).append("\tandroid:label=\"").append(label).append("\" \n");
         }
-        if(logo != null) {
+        if (logo != null) {
             builder.append(indent).append("\tandroid:logo=\"").append(logo).append("\" \n");
         }
-        if(manageSpaceActivity != null) {
+        if (manageSpaceActivity != null) {
             builder.append(indent).append("\tandroid:manageSpaceActivity=\"").append(manageSpaceActivity).append("\" \n");
         }
-        if(name != null) {
+        if (name != null) {
             builder.append(indent).append("\tandroid:name=\"").append(name).append("\" \n");
         }
-        if(permission != null) {
+        if (permission != null) {
             builder.append(indent).append("\tandroid:permission=\"").append(permission).append("\" \n");
         }
-        if(persistent != null) {
+        if (persistent != null) {
             builder.append(indent).append("\tandroid:persistent=\"").append(persistent).append("\" \n");
         }
-        if(process != null) {
+        if (process != null) {
             builder.append(indent).append("\tandroid:process=\"").append(process).append("\" \n");
         }
-        if(restoreAnyVersion != null) {
+        if (restoreAnyVersion != null) {
             builder.append(indent).append("\tandroid:restoreAnyVersion=\"").append(restoreAnyVersion).append("\" \n");
         }
-        if(supportsRtl != null) {
+        if (supportsRtl != null) {
             builder.append(indent).append("\tandroid:supportsRtl=\"").append(supportsRtl).append("\" \n");
         }
-        if(taskAffinity != null) {
+        if (taskAffinity != null) {
             builder.append(indent).append("\tandroid:taskAffinity=\"").append(taskAffinity).append("\" \n");
         }
-        if(theme != null) {
+        if (theme != null) {
             builder.append(indent).append("\tandroid:theme=\"").append(theme).append("\" \n");
         }
-        if(uiOptions != null) {
+        if (uiOptions != null) {
             builder.append(indent).append("\tandroid:uiOptions=\"").append(uiOptions).append("\" \n");
         }
 
         builder.append(indent).append(">\n");
 
-        for(Activity activity : activityList) {
+        for (Activity activity : activityList) {
             builder.append(activity.toXmlString(indent + "\t"));
         }
 
-        for(ActivityAlias activityAlias : activityAliasList) {
+        for (ActivityAlias activityAlias : activityAliasList) {
             builder.append(activityAlias.toXmlString(indent + "\t"));
         }
 
-        for(Service service : serviceList) {
+        for (Service service : serviceList) {
             builder.append(service.toXmlString(indent + "\t"));
         }
 
-        for(Receiver receiver : receiverList) {
+        for (Receiver receiver : receiverList) {
             builder.append(receiver.toXmlString(indent + "\t"));
         }
 
-        for(Provider provider : providerList) {
+        for (Provider provider : providerList) {
             builder.append(provider.toXmlString(indent + "\t"));
         }
 
-        for(UsesLibrary usesLibrary : usesLibraryList) {
+        for (UsesLibrary usesLibrary : usesLibraryList) {
             builder.append(usesLibrary.toXmlString(indent + "\t"));
         }
 

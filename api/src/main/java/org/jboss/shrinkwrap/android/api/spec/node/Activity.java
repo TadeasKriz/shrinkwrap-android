@@ -1,3 +1,20 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2013 Red Hat Inc. and/or its affiliates and other contributors
+ * as indicated by the @authors tag. All rights reserved.
+ * See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.jboss.shrinkwrap.android.api.spec.node;
 
 import org.jboss.shrinkwrap.android.api.spec.XmlNode;
@@ -276,11 +293,11 @@ public class Activity implements XmlNode {
     public void validate() {
         // TODO add validation
 
-        for(IntentFilter intentFilter : intentFilterList) {
+        for (IntentFilter intentFilter : intentFilterList) {
             intentFilter.validate();
         }
 
-        for(MetaData metaData : metaDataList) {
+        for (MetaData metaData : metaDataList) {
             metaData.validate();
         }
     }
@@ -291,20 +308,20 @@ public class Activity implements XmlNode {
 
         builder.append(indent).append("<activity \n");
 
-        if(allowTaskReparenting != null) {
+        if (allowTaskReparenting != null) {
             builder.append(indent).append("\tandroid:allowTaskReparenting=\"").append(allowTaskReparenting).append("\" \n");
         }
-        if(alwaysRetainTaskState != null) {
+        if (alwaysRetainTaskState != null) {
             builder.append(indent).append("\tandroid:alwaysRetainTaskState=\"").append(alwaysRetainTaskState).append("\" \n");
         }
-        if(clearTaskOnLaunch != null) {
+        if (clearTaskOnLaunch != null) {
             builder.append(indent).append("\tandroid:clearTaskOnLaunch=\"").append(clearTaskOnLaunch).append("\" \n");
         }
-        if(configChanges.size() > 0) {
+        if (configChanges.size() > 0) {
             builder.append(indent).append("\tandroid:enabled=\"");
             int i = 0;
-            for(String configChange : configChanges) {
-                if(i > 0) {
+            for (String configChange : configChanges) {
+                if (i > 0) {
                     builder.append("|");
                 }
                 builder.append(configChange);
@@ -312,68 +329,68 @@ public class Activity implements XmlNode {
             }
             builder.append("\" \n");
         }
-        if(enabled != null) {
+        if (enabled != null) {
             builder.append(indent).append("\tandroid:enabled=\"").append(enabled).append("\" \n");
         }
-        if(excludeFromRecents != null) {
+        if (excludeFromRecents != null) {
             builder.append(indent).append("\tandroid:excludeFromRecents=\"").append(excludeFromRecents).append("\" \n");
         }
-        if(exported != null) {
+        if (exported != null) {
             builder.append(indent).append("\tandroid:exported=\"").append(exported).append("\" \n");
         }
-        if(finishOnTaskLaunch != null) {
+        if (finishOnTaskLaunch != null) {
             builder.append(indent).append("\tandroid:finishOnTaskLaunch=\"").append(finishOnTaskLaunch).append("\" \n");
         }
-        if(hardwareAccelerated != null) {
+        if (hardwareAccelerated != null) {
             builder.append(indent).append("\tandroid:hardwareAccelerated=\"").append(hardwareAccelerated).append("\" \n");
         }
-        if(icon != null) {
+        if (icon != null) {
             builder.append(indent).append("\tandroid:icon=\"").append(icon).append("\" \n");
         }
-        if(label != null) {
+        if (label != null) {
             builder.append(indent).append("\tandroid:label=\"").append(label).append("\" \n");
         }
-        if(launchMode != null) {
+        if (launchMode != null) {
             builder.append(indent).append("\tandroid:launchMode=\"").append(launchMode).append("\" \n");
         }
-        if(multiprocess != null) {
+        if (multiprocess != null) {
             builder.append(indent).append("\tandroid:multiprocess=\"").append(multiprocess).append("\" \n");
         }
-        if(name != null) {
+        if (name != null) {
             builder.append(indent).append("\tandroid:name=\"").append(name).append("\" \n");
         }
-        if(noHistory != null) {
+        if (noHistory != null) {
             builder.append(indent).append("\tandroid:noHistory=\"").append(noHistory).append("\" \n");
         }
-        if(parentActivityName != null) {
+        if (parentActivityName != null) {
             builder.append(indent).append("\tandroid:parentActivityName=\"").append(parentActivityName).append("\" \n");
         }
-        if(permission != null) {
+        if (permission != null) {
             builder.append(indent).append("\tandroid:permission=\"").append(permission).append("\" \n");
         }
-        if(process != null) {
+        if (process != null) {
             builder.append(indent).append("\tandroid:process=\"").append(process).append("\" \n");
         }
-        if(screenOrientation != null) {
+        if (screenOrientation != null) {
             builder.append(indent).append("\tandroid:screenOrientation=\"").append(screenOrientation).append("\" \n");
         }
-        if(stateNotNeeded != null) {
+        if (stateNotNeeded != null) {
             builder.append(indent).append("\tandroid:stateNotNeeded=\"").append(stateNotNeeded).append("\" \n");
         }
-        if(taskAffinity != null) {
+        if (taskAffinity != null) {
             builder.append(indent).append("\tandroid:taskAffinity=\"").append(taskAffinity).append("\" \n");
         }
-        if(theme != null) {
+        if (theme != null) {
             builder.append(indent).append("\tandroid:theme=\"").append(theme).append("\" \n");
         }
-        if(uiOptions != null) {
+        if (uiOptions != null) {
             builder.append(indent).append("\tandroid:uiOptions=\"").append(uiOptions).append("\" \n");
         }
-        if(windowSoftInputMode.size() > 0) {
+        if (windowSoftInputMode.size() > 0) {
             builder.append(indent).append("\tandroid:enabled=\"");
             int i = 0;
-            for(String windowSoftInputMode : this.windowSoftInputMode) {
-                if(i > 0) {
+            for (String windowSoftInputMode : this.windowSoftInputMode) {
+                if (i > 0) {
                     builder.append("|");
                 }
                 builder.append(windowSoftInputMode);
@@ -383,11 +400,11 @@ public class Activity implements XmlNode {
 
         builder.append(indent).append(">\n");
 
-        for(IntentFilter intentFilter : intentFilterList) {
+        for (IntentFilter intentFilter : intentFilterList) {
             builder.append(intentFilter.toXmlString(indent + "\t"));
         }
 
-        for(MetaData metaData : metaDataList) {
+        for (MetaData metaData : metaDataList) {
             builder.append(metaData.toXmlString(indent + "\t"));
         }
 

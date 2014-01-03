@@ -1,3 +1,20 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2013 Red Hat Inc. and/or its affiliates and other contributors
+ * as indicated by the @authors tag. All rights reserved.
+ * See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.jboss.shrinkwrap.android.api.spec.node;
 
 import org.jboss.shrinkwrap.android.api.spec.XmlNode;
@@ -20,7 +37,7 @@ public class Manifest implements XmlNode {
     private String installLocation = null;
 
     private Application application = null;
-    private List<Instrumentation> instrumentationList = new ArrayList<Instrumentation>(); // TODO can there be more instrumentations in one Manifest ???
+    private Instrumentation instrumentation = null;
     private List<Permission> permissionList = new ArrayList<Permission>();
     private List<PermissionGroup> permissionGroupList = new ArrayList<PermissionGroup>();
     private List<PermissionTree> permissionTreeList = new ArrayList<PermissionTree>();
@@ -100,12 +117,12 @@ public class Manifest implements XmlNode {
         return this;
     }
 
-    public List<Instrumentation> getInstrumentationList() {
-        return instrumentationList;
+    public Instrumentation getInstrumentation() {
+        return instrumentation;
     }
 
     public Manifest addInstrumentation(Instrumentation instrumentation) {
-        instrumentationList.add(instrumentation);
+        this.instrumentation = instrumentation;
         return this;
     }
 
@@ -167,35 +184,35 @@ public class Manifest implements XmlNode {
     public void validate() {
         // TODO add validation
 
-        if(application != null) {
+        if (application != null) {
             application.validate();
         }
 
-        for(Instrumentation instrumentation : instrumentationList) {
+        if (instrumentation != null) {
             instrumentation.validate();
         }
 
-        for(Permission permission : permissionList) {
+        for (Permission permission : permissionList) {
             permission.validate();
         }
 
-        for(PermissionGroup permissionGroup : permissionGroupList) {
-           permissionGroup.validate();
+        for (PermissionGroup permissionGroup : permissionGroupList) {
+            permissionGroup.validate();
         }
 
-        for(PermissionTree permissionTree : permissionTreeList) {
+        for (PermissionTree permissionTree : permissionTreeList) {
             permissionTree.validate();
         }
 
-        for(UsesConfiguration usesConfiguration : usesConfigurationList) {
+        for (UsesConfiguration usesConfiguration : usesConfigurationList) {
             usesConfiguration.validate();
         }
 
-        for(UsesPermission usesPermission : usesPermissionList) {
+        for (UsesPermission usesPermission : usesPermissionList) {
             usesPermission.validate();
         }
 
-        if(usesSdk != null) {
+        if (usesSdk != null) {
             usesSdk.validate();
         }
     }
@@ -205,59 +222,59 @@ public class Manifest implements XmlNode {
         StringBuilder builder = new StringBuilder();
 
         builder.append(indent).append("<manifest \n");
-        if(xmlnsAndroid != null) {
+        if (xmlnsAndroid != null) {
             builder.append(indent).append("\txmlns:android=\"").append(xmlnsAndroid).append("\" \n");
         }
-        if(pack != null) {
+        if (pack != null) {
             builder.append(indent).append("\tpackage=\"").append(pack).append("\" \n");
         }
-        if(sharedUserId != null) {
+        if (sharedUserId != null) {
             builder.append(indent).append("\tandroid:sharedUserId=\"").append(sharedUserId).append("\" \n");
         }
-        if(sharedUserLabel != null) {
+        if (sharedUserLabel != null) {
             builder.append(indent).append("\tandroid:sharedUserLabel=\"").append(sharedUserLabel).append("\" \n");
         }
-        if(versionCode != null) {
+        if (versionCode != null) {
             builder.append(indent).append("\tandroid:versionCode=\"").append(versionCode).append("\" \n");
         }
-        if(versionName != null) {
+        if (versionName != null) {
             builder.append(indent).append("\tandroid:versionName=\"").append(versionName).append("\" \n");
         }
-        if(installLocation != null) {
+        if (installLocation != null) {
             builder.append(indent).append("\tandroid:installLocation=\"").append(installLocation).append("\" \n");
         }
 
         builder.append(indent).append(">\n");
 
-        if(application != null) {
+        if (application != null) {
             builder.append(application.toXmlString(indent + "\t"));
         }
 
-        for(Instrumentation instrumentation : instrumentationList) {
+        if (instrumentation != null) {
             builder.append(instrumentation.toXmlString(indent + "\t"));
         }
 
-        for(Permission permission : permissionList) {
+        for (Permission permission : permissionList) {
             builder.append(permission.toXmlString(indent + "\t"));
         }
 
-        for(PermissionGroup permissionGroup : permissionGroupList) {
+        for (PermissionGroup permissionGroup : permissionGroupList) {
             builder.append(permissionGroup.toXmlString(indent + "\t"));
         }
 
-        for(PermissionTree permissionTree : permissionTreeList) {
+        for (PermissionTree permissionTree : permissionTreeList) {
             builder.append(permissionTree.toXmlString(indent + "\t"));
         }
 
-        for(UsesConfiguration usesConfiguration : usesConfigurationList) {
+        for (UsesConfiguration usesConfiguration : usesConfigurationList) {
             builder.append(usesConfiguration.toXmlString(indent + "\t"));
         }
 
-        for(UsesPermission usesPermission : usesPermissionList) {
+        for (UsesPermission usesPermission : usesPermissionList) {
             builder.append(usesPermission.toXmlString(indent + "\t"));
         }
 
-        if(usesSdk != null) {
+        if (usesSdk != null) {
             builder.append(usesSdk.toXmlString(indent + "\t"));
         }
 

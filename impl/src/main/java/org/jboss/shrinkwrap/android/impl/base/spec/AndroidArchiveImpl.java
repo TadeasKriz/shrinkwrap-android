@@ -1,3 +1,20 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2013 Red Hat Inc. and/or its affiliates and other contributors
+ * as indicated by the @authors tag. All rights reserved.
+ * See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.jboss.shrinkwrap.android.impl.base.spec;
 
 import org.jboss.shrinkwrap.api.*;
@@ -22,7 +39,6 @@ import java.security.PrivilegedAction;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-
 
 /**
  * @author <a href="mailto:tkriz@redhat.com">Tadeas Kriz</a>
@@ -53,7 +69,7 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
 
     @Override
     public AndroidArchive addAsAndroidManifest(File resource) {
-        if(resource.isFile()) {
+        if (resource.isFile()) {
             return addAsAndroidManifest(new FileAsset(resource));
         } else {
             throw new IllegalArgumentException("AndroidManifest has to be single file!");
@@ -63,7 +79,7 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
     @Override
     public AndroidArchive addAsAndroidManifest(URL resource) {
         File file = new File(resource.getFile());
-        if(file.exists()) {
+        if (file.exists()) {
             return addAsAndroidManifest(file);
         }
 
@@ -112,27 +128,28 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
     }
 
     @Override
-    public AndroidArchive addAsResource(String resourceName, ArchivePath target, ClassLoader classLoader) throws IllegalArgumentException {
+    public AndroidArchive addAsResource(String resourceName, ArchivePath target, ClassLoader classLoader)
+        throws IllegalArgumentException {
         return addAsResource(new ClassLoaderAsset(resourceName, classLoader), target);
     }
 
     @Override
     public AndroidArchive addAsResource(File resource, ArchivePath target) {
-        if(resource.isFile()) {
+        if (resource.isFile()) {
             return addAsResource(new FileAsset(resource), target);
         }
 
         final File[] files = resource.listFiles();
 
-        if(files == null) {
+        if (files == null) {
 
         }
 
-        if(files.length == 0) {
+        if (files.length == 0) {
             return addAsResource(new FileAsset(resource), target);
         }
 
-        for(File file : files) {
+        for (File file : files) {
             ArchivePath child = ArchivePaths.create(file.getName());
             addAsResource(file, new BasicPath(target, child));
         }
@@ -143,7 +160,7 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
     @Override
     public AndroidArchive addAsResource(URL resource, ArchivePath target) {
         File file = new File(resource.getFile());
-        if(file.exists()) {
+        if (file.exists()) {
             return addAsResource(file, target);
         }
 
@@ -156,10 +173,9 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
         return add(resource, location);
     }
 
-
     @Override
     public AndroidArchive addAsResources(Package resourcePackage, String... resourceNames) throws IllegalArgumentException {
-        for(String resourceName : resourceNames) {
+        for (String resourceName : resourceNames) {
             addAsResource(resourcePackage, resourceName);
         }
         return this;
@@ -174,12 +190,14 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
     }
 
     @Override
-    public AndroidArchive addAsResource(Package resourcePackage, String resourceName, String target) throws IllegalArgumentException {
+    public AndroidArchive addAsResource(Package resourcePackage, String resourceName, String target)
+        throws IllegalArgumentException {
         return addAsResource(resourcePackage, resourceName, ArchivePaths.create(target));
     }
 
     @Override
-    public AndroidArchive addAsResource(Package resourcePackage, String resourceName, ArchivePath target) throws IllegalArgumentException {
+    public AndroidArchive addAsResource(Package resourcePackage, String resourceName, ArchivePath target)
+        throws IllegalArgumentException {
         String classLoaderResourceName = AssetUtil.getClassLoaderResourceName(resourcePackage, resourceName);
         Asset resource = new ClassLoaderAsset(classLoaderResourceName);
 
@@ -213,20 +231,20 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
 
     @Override
     public AndroidArchive addAsAsset(File resource, ArchivePath target) {
-        if(resource.isFile()) {
+        if (resource.isFile()) {
             return addAsResource(new FileAsset(resource), target);
         }
 
         final File[] files = resource.listFiles();
-        if(files == null) {
+        if (files == null) {
 
         }
 
-        if(files.length == 0) {
+        if (files.length == 0) {
             return addAsDirectory(new BasicPath(assetDirectory, target));
         }
 
-        for(File file : files) {
+        for (File file : files) {
             ArchivePath child = ArchivePaths.create(file.getName());
             addAsAsset(file, new BasicPath(target, child));
         }
@@ -237,7 +255,7 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
     @Override
     public AndroidArchive addAsAsset(URL resource, ArchivePath target) {
         File file = new File(resource.getFile());
-        if(file.exists()) {
+        if (file.exists()) {
             return addAsAsset(file, target);
         }
 
@@ -264,7 +282,8 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
         try {
             classToAdd = ClassLoaderSearchUtilDelegator.findClassFromClassLoaders(fullyQualifiedClassName, cls);
         } catch (final ClassNotFoundException e) {
-            throw new IllegalArgumentException("Could not find the requested Class \"" + fullyQualifiedClassName + "\" in any of the configured ClassLoaders for this archive", e);
+            throw new IllegalArgumentException("Could not find the requested Class \"" + fullyQualifiedClassName
+                + "\" in any of the configured ClassLoaders for this archive", e);
         }
 
         return addClass(classToAdd);
@@ -276,7 +295,8 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
         try {
             classToAdd = Class.forName(fullyQualifiedClassName, false, classLoader);
         } catch (final ClassNotFoundException e) {
-            throw new IllegalArgumentException("Could not load class of name \"" + fullyQualifiedClassName + "\" with \"" + classLoader + "\"", e);
+            throw new IllegalArgumentException("Could not load class of name \"" + fullyQualifiedClassName + "\" with \""
+                + classLoader + "\"", e);
         }
 
         return addClass(classToAdd);
@@ -284,7 +304,7 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
 
     @Override
     public AndroidArchive addClasses(Class<?>... classes) throws IllegalArgumentException {
-        for(final Class<?> clazz : classes) {
+        for (final Class<?> clazz : classes) {
             Asset resource = new ClassAsset(clazz);
             ArchivePath location = new BasicPath(CLASS_DIRECTORY, AssetUtil.getFullPathForClassResource(clazz));
             add(resource, location);
@@ -322,17 +342,19 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
     }
 
     @Override
-    public AndroidArchive addPackages(boolean recursive, Filter<ArchivePath> archivePathFilter, Package... packages) throws IllegalArgumentException {
+    public AndroidArchive addPackages(boolean recursive, Filter<ArchivePath> archivePathFilter, Package... packages)
+        throws IllegalArgumentException {
         return addPackages(recursive, archivePathFilter, null, packages);
     }
 
-    private AndroidArchive addPackages(boolean recursive, Filter<ArchivePath> archivePathFilter, ClassLoader classLoader, Package... packages) throws IllegalArgumentException {
+    private AndroidArchive addPackages(boolean recursive, Filter<ArchivePath> archivePathFilter, ClassLoader classLoader,
+        Package... packages) throws IllegalArgumentException {
         String[] packageNames = new String[packages.length];
-        for(int i = 0; i < packages.length; i++) {
+        for (int i = 0; i < packages.length; i++) {
             packageNames[i] = packages[i] == null ? null : packages[i].getName();
         }
 
-        if(classLoader == null) {
+        if (classLoader == null) {
             return addPackages(recursive, archivePathFilter, packageNames);
         }
 
@@ -350,11 +372,12 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
     }
 
     @Override
-    public AndroidArchive addPackages(boolean recursive, Filter<ArchivePath> archivePathFilter, String... packageNames) throws IllegalArgumentException {
+    public AndroidArchive addPackages(boolean recursive, Filter<ArchivePath> archivePathFilter, String... packageNames)
+        throws IllegalArgumentException {
         final Iterable<ClassLoader> classLoaders = getArchiveClassLoaders();
 
-        for(String packageName : packageNames) {
-            for(final ClassLoader classLoader : classLoaders) {
+        for (String packageName : packageNames) {
+            for (final ClassLoader classLoader : classLoaders) {
                 addPackage(recursive, archivePathFilter, classLoader, packageName);
             }
         }
@@ -362,19 +385,21 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
         return this;
     }
 
-    private AndroidArchive addPackages(boolean recursive, Filter<ArchivePath> filter, ClassLoader classLoader, String... packageNames) {
-        for(String packageName : packageNames) {
+    private AndroidArchive addPackages(boolean recursive, Filter<ArchivePath> filter, ClassLoader classLoader,
+        String... packageNames) {
+        for (String packageName : packageNames) {
             addPackage(recursive, filter, classLoader, packageName);
         }
         return this;
     }
 
-    private void addPackage(boolean recursive, final Filter<ArchivePath> filter, final ClassLoader classLoader, String packageName) {
+    private void addPackage(boolean recursive, final Filter<ArchivePath> filter, final ClassLoader classLoader,
+        String packageName) {
         final URLPackageScanner.Callback callback = new URLPackageScanner.Callback() {
             @Override
             public void classFound(String className) {
                 ArchivePath classNamePath = AssetUtil.getFullPathForClassResource(className);
-                if(!filter.include(classNamePath)) {
+                if (!filter.include(classNamePath)) {
                     return;
                 }
                 Asset asset = new ClassLoaderAsset(classNamePath.get().substring(1), classLoader);
@@ -402,10 +427,10 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
 
     @Override
     public AndroidArchive deleteClasses(Class<?>... classes) throws IllegalArgumentException {
-        for(Class<?> clazz : classes) {
+        for (Class<?> clazz : classes) {
             final ArchivePath path = new BasicPath(CLASS_DIRECTORY, AssetUtil.getFullPathForClassResource(clazz));
 
-            for(ArchivePath innerPath : getInnerClasses(path)) {
+            for (ArchivePath innerPath : getInnerClasses(path)) {
                 getArchive().delete(innerPath);
             }
 
@@ -454,11 +479,12 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
     }
 
     @Override
-    public AndroidArchive deletePackages(boolean recursive, Filter<ArchivePath> archivePathFilter, Package... packages) throws IllegalArgumentException {
+    public AndroidArchive deletePackages(boolean recursive, Filter<ArchivePath> archivePathFilter, Package... packages)
+        throws IllegalArgumentException {
 
         String[] packagesName = new String[packages.length];
 
-        for(int i = 0; i < packages.length; i++) {
+        for (int i = 0; i < packages.length; i++) {
             packagesName[i] = packages[i].getName();
         }
 
@@ -466,10 +492,11 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
     }
 
     @Override
-    public AndroidArchive deletePackages(boolean recursive, Filter<ArchivePath> archivePathFilter, String... packages) throws IllegalArgumentException {
+    public AndroidArchive deletePackages(boolean recursive, Filter<ArchivePath> archivePathFilter, String... packages)
+        throws IllegalArgumentException {
 
-        for(String packageName : packages) {
-            for(ClassLoader cl : getArchiveClassLoaders()) {
+        for (String packageName : packages) {
+            for (ClassLoader cl : getArchiveClassLoaders()) {
                 deletePackage(recursive, archivePathFilter, packageName, cl);
             }
         }
@@ -483,7 +510,7 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
             public void classFound(String className) {
                 ArchivePath classNamePath = AssetUtil.getFullPathForClassResource(className);
 
-                if(!filter.include(classNamePath)) {
+                if (!filter.include(classNamePath)) {
                     return;
                 }
 
@@ -602,7 +629,8 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
     }
 
     @Override
-    public <X extends Archive<X>> Collection<X> getAsType(Class<X> type, Filter<ArchivePath> archivePathFilter, ArchiveFormat archiveFormat) {
+    public <X extends Archive<X>> Collection<X> getAsType(Class<X> type, Filter<ArchivePath> archivePathFilter,
+        ArchiveFormat archiveFormat) {
         return getArchive().getAsType(type, archivePathFilter, archiveFormat);
     }
 
@@ -637,13 +665,15 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
     }
 
     @Override
-    public AndroidArchive add(Archive<?> archive, ArchivePath archivePath, Class<? extends StreamExporter> exporter) throws IllegalArgumentException {
+    public AndroidArchive add(Archive<?> archive, ArchivePath archivePath, Class<? extends StreamExporter> exporter)
+        throws IllegalArgumentException {
         getArchive().add(archive, archivePath, exporter);
         return this;
     }
 
     @Override
-    public AndroidArchive add(Archive<?> archive, String path, Class<? extends StreamExporter> exporter) throws IllegalArgumentException {
+    public AndroidArchive add(Archive<?> archive, String path, Class<? extends StreamExporter> exporter)
+        throws IllegalArgumentException {
         getArchive().add(archive, path, exporter);
         return this;
     }
@@ -673,19 +703,22 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
     }
 
     @Override
-    public AndroidArchive merge(Archive<?> archive, ArchivePath archivePath, Filter<ArchivePath> archivePathFilter) throws IllegalArgumentException {
+    public AndroidArchive merge(Archive<?> archive, ArchivePath archivePath, Filter<ArchivePath> archivePathFilter)
+        throws IllegalArgumentException {
         getArchive().merge(archive, archivePath, archivePathFilter);
         return this;
     }
 
     @Override
-    public AndroidArchive merge(Archive<?> archive, String path, Filter<ArchivePath> archivePathFilter) throws IllegalArgumentException {
+    public AndroidArchive merge(Archive<?> archive, String path, Filter<ArchivePath> archivePathFilter)
+        throws IllegalArgumentException {
         getArchive().merge(archive, path, archivePathFilter);
         return this;
     }
 
     @Override
-    public AndroidArchive move(ArchivePath source, ArchivePath target) throws IllegalArgumentException, IllegalArchivePathException {
+    public AndroidArchive move(ArchivePath source, ArchivePath target) throws IllegalArgumentException,
+        IllegalArchivePathException {
         getArchive().move(source, target);
         return this;
     }
@@ -719,9 +752,9 @@ public class AndroidArchiveImpl extends AssignableBase<Archive<?>> implements An
         final ArchiveFactory factory = domain.getArchiveFactory();
         final Archive<AndroidArchive> newArchive = factory.create(AndroidArchive.class, getName());
         final Map<ArchivePath, Node> contents = currentArchive.getContent();
-        for(final ArchivePath path : contents.keySet()) {
+        for (final ArchivePath path : contents.keySet()) {
             Asset asset = contents.get(path).getAsset();
-            if(asset != null) {
+            if (asset != null) {
                 newArchive.add(asset, path);
             }
         }
